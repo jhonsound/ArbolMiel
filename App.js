@@ -3,8 +3,8 @@ import { StyleSheet, Text, View } from 'react-native';
 
 export default function App() {
   return (
-    <View style={styles.container}>
-      <Text style={styles.text}>Arbol&Miel!</Text>
+    <View  style={styles.container}>
+      <Text className='bg-white p-3 rounded-md text-black' >¡Arbol & Miel!</Text>
       <StatusBar style="auto" />
     </View>
   );
