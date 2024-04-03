@@ -8,6 +8,5 @@ module.exports = {
     extend: {},
   },
   plugins: ["nativewind/babel"],
-  presets: ["babel-preset-expo"]
 };
 
