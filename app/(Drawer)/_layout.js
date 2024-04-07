@@ -1,5 +1,6 @@
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { Drawer } from "expo-router/drawer";
+import Ionicons from "@expo/vector-icons/Ionicons";
 import CustomDrawerContent from "../../components/CustomDrawerContent";
 
 export default function Layout() {
@@ -9,8 +10,9 @@ export default function Layout() {
         drawerContent={CustomDrawerContent}
         screenOptions={{
           drawerHideStatusBarOnOpen: false,
-          drawerActiveBackgroundColor: '#5363df',
-          drawerActiveTintColor: '#fff'
+          drawerActiveBackgroundColor: "#5363df",
+          drawerActiveTintColor: "#fff",
+          drawerLabelStyle: { marginLeft: -25 }
         }}
       >
         <Drawer.Screen
@@ -18,6 +20,9 @@ export default function Layout() {
           options={{
             drawerLabel: "Registrar Colonia",
             title: "Registro De Colonia",
+            drawerIcon: ({ size, color }) => (
+              <Ionicons name="add-circle-outline" size={size} color={color}/>
+            ),
           }}
         />
         <Drawer.Screen
@@ -25,9 +30,9 @@ export default function Layout() {
           options={{
             drawerLabel: "Control Colonia",
             title: "Control De Colonia",
-            /* drawerIcon: ({size, color})=>(
-              <I
-            ) */
+            drawerIcon: ({ size, color }) => (
+              <Ionicons name="qr-code" size={size} color={color}></Ionicons>
+            ),
           }}
         />
         <Drawer.Screen
@@ -35,9 +40,9 @@ export default function Layout() {
           options={{
             drawerLabel: "Lista De Registros",
             title: "Lista De Registros",
-            /* drawerIcon: ({size, color})=>(
-            <I
-          ) */
+            drawerIcon: ({ size, color }) => (
+              <Ionicons name="list" size={size} color={color}/>
+            ),
           }}
         />
         <Drawer.Screen
@@ -45,9 +50,9 @@ export default function Layout() {
           options={{
             drawerLabel: "Lista De Colonias",
             title: "Lista De Colonias",
-            /* drawerIcon: ({size, color})=>(
-          <I
-        ) */
+            drawerIcon: ({ size, color }) => (
+              <Ionicons name="list" size={size} color={color}/>
+            ),
           }}
         />
         <Drawer.Screen
@@ -55,9 +60,9 @@ export default function Layout() {
           options={{
             drawerLabel: "Mi Cuenta",
             title: "Mi Cuenta",
-            /* drawerIcon: ({size, color})=>(
-        <I
-      ) */
+            drawerIcon: ({ size, color }) => (
+              <Ionicons name="person" size={size} color={color}/>
+            ),
           }}
         />
       </Drawer>
