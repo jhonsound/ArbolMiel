@@ -1,44 +1,53 @@
-import { useRouter } from "expo-router";
 import {
-  DrawerContentScrollView,
   DrawerItem,
   DrawerItemList,
+  DrawerContentScrollView,
 } from "@react-navigation/drawer";
-import { View, Text, Image } from "react-native";
 import Logo from "../assets/Logo.png";
+import { useRouter } from "expo-router";
+import { View, Text, Image } from "react-native";
+import Ionicons from "@expo/vector-icons/Ionicons";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 export default function CustomDrawerContent(props) {
   const router = useRouter();
-  const { top, bottom } = useSafeAreaInsets();
 
   return (
-    <View style={{ flex: 1 }}>
+    <View style={{ backgroundColor: "#E8EFF5", flex: 1 }}>
       <DrawerContentScrollView
         {...props}
-        contentContainerStyle={{ backgroundColor: "#dde3fe" }}
+        contentContainerStyle={{ backgroundColor: "#fff" }}
       >
-        <View style={{ padding: 10 }}>
+
+        <View style={{ paddingTop: 10 }}>
           <Image
             source={Logo}
             resizeMode="contain"
             style={{ width: 200, height: 200, alignSelf: "center" }}
           />
         </View>
-        <View style={{ backgroundColor: '#fff', padding: 10}}>
+
+        <View style={{ backgroundColor: "#E8EFF5", padding: 10 }}>
           <DrawerItemList {...props} />
-          <DrawerItem label={"logout"} onPress={() => router.replace("/")} />
         </View>
       </DrawerContentScrollView>
+
       <View
         style={{
-          borderTopColor: "#dde3fe",
+          borderTopColor: "#10321C",
           borderTopWidth: 1,
-          padding: 20,
-          paddingBottom: 20 + bottom,
+          padding: 0,
+          backgroundColor: "#E8EFF5",
         }}
       >
-        <Text>Footer</Text>
+        <DrawerItem
+          label={"logout"}
+          onPress={() => router.replace("/")}
+          labelStyle={{ marginLeft: -20 }}
+          icon={({ size }) => (
+            <Ionicons name="exit-outline" size={size} color={"#F07F0E"} />
+          )}
+        />
       </View>
     </View>
   );

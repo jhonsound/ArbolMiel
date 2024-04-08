@@ -10,8 +10,8 @@ export default function Layout() {
         drawerContent={CustomDrawerContent}
         screenOptions={{
           drawerHideStatusBarOnOpen: false,
-          drawerActiveBackgroundColor: "#5363df",
-          drawerActiveTintColor: "#fff",
+          drawerActiveBackgroundColor: "#fff",
+          drawerActiveTintColor: '#10321C',
           drawerLabelStyle: { marginLeft: -25 }
         }}
       >
@@ -21,7 +21,7 @@ export default function Layout() {
             drawerLabel: "Registrar Colonia",
             title: "Registro De Colonia",
             drawerIcon: ({ size, color }) => (
-              <Ionicons name="add-circle-outline" size={size} color={color}/>
+              <Ionicons name="add-circle-outline" size={size} color={'#F07F0E'}/>
             ),
           }}
         />
@@ -31,7 +31,7 @@ export default function Layout() {
             drawerLabel: "Control Colonia",
             title: "Control De Colonia",
             drawerIcon: ({ size, color }) => (
-              <Ionicons name="qr-code" size={size} color={color}></Ionicons>
+              <Ionicons name="qr-code" size={size} color={'#F07F0E'}></Ionicons>
             ),
           }}
         />
@@ -41,7 +41,7 @@ export default function Layout() {
             drawerLabel: "Lista De Registros",
             title: "Lista De Registros",
             drawerIcon: ({ size, color }) => (
-              <Ionicons name="list" size={size} color={color}/>
+              <Ionicons name="list" size={size} color={'#F07F0E'}/>
             ),
           }}
         />
@@ -51,7 +51,7 @@ export default function Layout() {
             drawerLabel: "Lista De Colonias",
             title: "Lista De Colonias",
             drawerIcon: ({ size, color }) => (
-              <Ionicons name="list" size={size} color={color}/>
+              <Ionicons name="list" size={size} color={'#F07F0E'}/>
             ),
           }}
         />
@@ -61,7 +61,7 @@ export default function Layout() {
             drawerLabel: "Mi Cuenta",
             title: "Mi Cuenta",
             drawerIcon: ({ size, color }) => (
-              <Ionicons name="person" size={size} color={color}/>
+              <Ionicons name="person" size={size} color={'#F07F0E'}/>
             ),
           }}
         />
