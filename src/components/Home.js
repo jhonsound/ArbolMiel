@@ -1,7 +1,7 @@
 import { StatusBar } from "expo-status-bar";
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 
-export default function HomeScreen() {
+export default function Feed() {
     return (
         <View style={styles.container}>
           <TouchableOpacity>
@@ -9,7 +9,7 @@ export default function HomeScreen() {
               onPress={() => Alert.alert("hola")}
               className="bg-white p-3 rounded-md text-black"
             >
-              ¡Arbol & Miel!
+              Feed
             </Text>
           </TouchableOpacity>
           <StatusBar style="auto" />
