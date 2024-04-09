@@ -3,9 +3,9 @@ module.exports = function (api) {
   return {
     presets: ["babel-preset-expo", "module:metro-react-native-babel-preset"],
     plugins: [
-      "nativewind/babel",
       "react-native-reanimated/plugin",
       "expo-router/babel",
+      "nativewind/babel",
     ],
   };
 };

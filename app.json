@@ -3,7 +3,7 @@
     "name": "ArbolMiel",
     "slug": "ArbolMiel",
     "version": "1.0.0",
-    "scheme": "ArbolMiel",
+    "scheme": "arbol-miel",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",

@@ -1,10 +1,6 @@
-import { Text, View } from "react-native";
+/* import { Text, View } from "react-native"; */
 import { Redirect } from "expo-router";
+import { Login } from "../screens/Login";
 export default function Page() {
-  return(
-    <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
-      <Text>Home Index</Text>
-      <Redirect href={'(Drawer)/registration-cologne'}/>
-    </View>
-  )
+  return <Login />;
 }

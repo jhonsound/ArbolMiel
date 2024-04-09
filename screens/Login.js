@@ -1,23 +1,26 @@
-import { Image, View, TextInput, Text, ImageBackgroundComponent, ImageBackground  } from "react-native";
-import { StyleSheet } from "react-native-web";
-import { NativeWindStyleSheet } from "nativewind";
-NativeWindStyleSheet.setOutput({
-  default: "native",
-});
-export function Login({ navigation }) {
-  const styles = StyleSheet.create({
-    logo: {},
-  });
+import {
+  Image,
+  View,
+  TextInput,
+  Text,
+  ImageBackground,
+  Touchable,
+} from "react-native";
+import background from "../assets/background.jpg";
+import footer from "../assets/footer.png";
+import qr from "../assets/qr.png";
+import Logo from "../assets/Logo.png";
+import { Link } from "expo-router";
+
+export function Login() {
   return (
     <View style={{ flex: 1, alignItems: "center" }}>
-
-      <Image
-        resizeMode="contain"
-        className="z-10 w-[80%] h-[40%]"
-        style={styles.logo}
-        source={require("../../assets/Logo.png")}
+      <Image resizeMode="contain" className="w-[200px]" source={Logo} />
+      <ImageBackground
+        resizeMode="cover"
+        className="opacity-30 absolute w-full h-[100%]"
+        source={background}
       />
-      <ImageBackground resizeMode="cover" className="z-1 opacity-20 absolute w-full h-[100%]" source={require("../../assets/background.jpg")} />
       <View className="flex flex-col h-[100%] w-[100%] gap-5 items-center">
         <TextInput
           className="bg-white text-lg w-[85%] px-3 py-3 rounded-lg shadow-black shadow-xl"
@@ -27,24 +30,25 @@ export function Login({ navigation }) {
           className="bg-white text-lg mb-10 w-[85%] px-3 py-3 rounded-lg shadow-black shadow-xl"
           placeholder="Contraseña"
         ></TextInput>
-        <View
-          className="bg-black rounded-md px-10 py-1"
-          title="Ingresar"
-          color={"#000"}
-          onTouchEnd={() => navigation.navigate("Home")}
-        ><Text className="text-white text-xl">Ingresar</Text></View>
+        <Link href="/(Drawer)/my-account">
+          <View className="bg-black rounded-md px-10 py-2">
+            <Text className="text-white text-xl">Ingresar</Text>
+          </View>
+        </Link>
       </View>
       <Image
         resizeMode="stretch"
         className="z-10 absolute bottom-0 w-[100%] h-[20%]"
-        source={require("../../assets/footer.png")}
+        source={footer}
       />
       <Image
         resizeMode="stretch"
         className="z-10 absolute left-6 bottom-5 w-[20%] h-[10%]"
-        source={require("../../assets/qr.png")}
+        source={qr}
       />
-      <Text className=" z-20 text-white text-[12px] font-semibold absolute bottom-2 left-4">Verificar Colonia</Text>
+      <Text className=" z-20 text-white text-[12px] font-semibold absolute bottom-2 left-4">
+        Verificar Colonia
+      </Text>
     </View>
   );
 }
