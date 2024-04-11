@@ -4,7 +4,7 @@ import {
   TextInput,
   Text,
   ImageBackground,
-  Touchable,
+  KeyboardAvoidingView,
 } from "react-native";
 import background from "../assets/background.jpg";
 import footer from "../assets/footer.png";
@@ -14,7 +14,11 @@ import { Link } from "expo-router";
 
 export function Login() {
   return (
-    <View style={{ flex: 1, alignItems: "center" }}>
+    <KeyboardAvoidingView
+      behavior={Platform.OS === "ios" ? "padding" : "height"}
+      keyboardVerticalOffset={Platform.OS === "ios" ? 0 : -200}
+      style={{ flex: 1, alignItems: "center" }}
+    >
       <Image resizeMode="contain" className="w-[200px]" source={Logo} />
       <ImageBackground
         resizeMode="cover"
@@ -27,10 +31,11 @@ export function Login() {
           placeholder="Usuario"
         ></TextInput>
         <TextInput
+        
           className="bg-white text-lg mb-10 w-[85%] px-3 py-3 rounded-lg shadow-black shadow-xl"
           placeholder="Contraseña"
         ></TextInput>
-        <Link href="/(Drawer)/my-account">
+        <Link href="/(Drawer)/scan-qr">
           <View className="bg-black rounded-md px-10 py-2">
             <Text className="text-white text-xl">Ingresar</Text>
           </View>
@@ -49,6 +54,6 @@ export function Login() {
       <Text className=" z-20 text-white text-[12px] font-semibold absolute bottom-2 left-4">
         Verificar Colonia
       </Text>
-    </View>
+    </KeyboardAvoidingView>
   );
 }
