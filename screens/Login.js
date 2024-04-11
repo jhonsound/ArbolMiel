@@ -30,7 +30,7 @@ export function Login() {
           className="bg-white text-lg mb-10 w-[85%] px-3 py-3 rounded-lg shadow-black shadow-xl"
           placeholder="Contraseña"
         ></TextInput>
-        <Link href="/(Drawer)/my-account">
+        <Link href="/(Drawer)/registration-cologne">
           <View className="bg-black rounded-md px-10 py-2">
             <Text className="text-white text-xl">Ingresar</Text>
           </View>
