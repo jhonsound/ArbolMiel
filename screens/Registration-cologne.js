@@ -1,37 +1,69 @@
-import {
-  Image,
-  View,
-  TextInput,
-  Text,
-  ImageBackground,
-  Touchable,
-} from "react-native";
-import qr from "../assets/QR2.png";
-import { Link } from "expo-router";
+import React, { useEffect, useState } from "react";
+import { View, TextInput, Button, Pressable, Alert } from "react-native";
+import SelectComponent from "../components/SelectComponent";
+import Ionicons from "@expo/vector-icons/Ionicons";
 
 export function Resgistration() {
+  const [registrationForm, setRegistrationForm] = useState({
+    species: "s",
+    Relationship: "d",
+    Source: "d",
+    Raises: "f",
+  });
+  let user = 'userr'
+
+  /*   useEffect(() => {
+    Alert.alert("Aaaaaaaaaaaaa");
+  }, []); */
+
+  const aletr = () => {
+    alert(`Aaaaaaaaaaaaa ${registrationForm.Raises}`);
+  };
   return (
-    <View style={{ flex: 1 }}>
-      <View className="flex flex-row items-center pt-4 gap-4">
-        <Image source={qr} />
-        <View className="w-[65%]">
-          <TextInput
-            className="bg-white text-lg w-[100%] px-3 py-3 rounded-lg shadow-black shadow-xl"
-            placeholder="Codigo QR"
-          ></TextInput>
-        </View>
-      </View>
-
-      <View className="flex flex-row">
+    <View style={{ flex: 1 }} className="w-full h-[100vh]">
+      <View className="p-4 bg-orange-500">
         <TextInput
-          className="bg-white text-lg w-[100%] px-3 py-3 rounded-lg shadow-black shadow-xl"
-          placeholder="Codigo QR"
+          className="bg-white text-lg w-[100%] px-3 py-3 rounded-lg mt-4"
+          placeholder="Cargar Foto Nueva Colonia"
         ></TextInput>
+        <Ionicons name="add-circle-outline" size={8} color={"#F07F0E"} />
       </View>
 
-      <Text className=" z-20 text-white text-[12px] font-semibold absolute bottom-2 left-4">
-        Verificar Colonia
-      </Text>
+      <SelectComponent
+        name={"species"}
+        placeholder="Especie"
+        setRegistrationForm={setRegistrationForm}
+        registrationForm={registrationForm}
+      />
+      <SelectComponent
+        placeholder="Parentesco"
+        setRegistrationForm={setRegistrationForm}
+        registrationForm={registrationForm}
+        name={"Relationship"}
+      />
+      <SelectComponent
+        name={"Source"}
+        placeholder="Procedencia"
+        setRegistrationForm={setRegistrationForm}
+        registrationForm={registrationForm}
+      />
+      <SelectComponent
+        name={"Raises"}
+        placeholder="N° Alzas"
+        setRegistrationForm={setRegistrationForm}
+        registrationForm={registrationForm}
+      />
+
+      <View className="flex items-center mt-6">
+        <Pressable onPress={() => aletr()}>
+          <Button
+            onPress={() => aletr()}
+            title="Guardar Colonia"
+            color="#10321C"
+            accessibilityLabel="Learn more about this purple button"
+          />
+        </Pressable>
+      </View>
     </View>
   );
 }
