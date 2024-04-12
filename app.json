@@ -29,7 +29,10 @@
       "bundler": "metro"
     },
     "plugins": [
-      "expo-router"
+      "expo-router",
+      "expo-barcode-scanner",
+      "expo-location",
+      "expo-camera"
     ]
   }
 }

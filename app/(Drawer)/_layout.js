@@ -65,6 +65,16 @@ export default function Layout() {
             ),
           }}
         />
+        <Drawer.Screen
+          name="scan-qr" // This is the name of the page and must match the url from root
+          options={{
+            drawerLabel: "Escanear QR",
+            title: "Escanear QR",
+            drawerIcon: ({ size, color }) => (
+              <Ionicons name="person" size={size} color={'#F07F0E'}/>
+            ),
+          }}
+        />
       </Drawer>
     </GestureHandlerRootView>
   );
