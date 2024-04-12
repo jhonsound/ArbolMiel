@@ -1,18 +1,33 @@
 import React, { useState, useEffect } from "react";
-import { Text, View, StyleSheet, Button, Image, TouchableOpacity } from "react-native";
+import {
+  Text,
+  View,
+  StyleSheet,
+  Button,
+  Image,
+  TouchableOpacity,
+} from "react-native";
 import { BarCodeScanner } from "expo-barcode-scanner";
 import scan from "../assets/scan.png";
 import * as Location from "expo-location";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import { Camera } from "expo-camera";
+
 export default function ScanQr() {
-  const [hasPermission, setHasPermission] = useState(null);
-  const [scanned, setScanned] = useState(false);
-  const [location, setLocation] = useState(null);
-  const [errorMsg, setErrorMsg] = useState(null);
+
   const [flashMode, setFlashMode] = useState(Camera.Constants.FlashMode.off);
   const [hasPermissionCamera, setHasPermissionCamera] = useState(null);
+  const [camara, setCamara] = useState(Camera.useCameraPermissions());
+  const [hasPermission, setHasPermission] = useState(null);
+  const [location, setLocation] = useState(null);
+  const [errorMsg, setErrorMsg] = useState(null);
+  const [scanned, setScanned] = useState(false);
+  const [location1, setLocation1] = useState(
+    Location.useForegroundPermissions()
+  );
+
   let text = "Waiting..";
+
   if (errorMsg) {
     text = errorMsg;
   } else if (location) {
@@ -33,12 +48,12 @@ export default function ScanQr() {
       }
 
       let location = await Location.getCurrentPositionAsync({});
-    
+
       setLocation(location);
     })();
     (async () => {
       const { status } = await Camera.requestCameraPermissionsAsync();
-     
+
       setHasPermissionCamera(status === "granted");
     })();
   }, []);
@@ -53,9 +68,11 @@ export default function ScanQr() {
   if (hasPermission === null) {
     return <Text>Requesting for camera permission</Text>;
   }
+
   if (hasPermission === false) {
     return <Text>No access to camera</Text>;
   }
+
   const toggleFlash = async () => {
     if (hasPermissionCamera) {
       if (flashMode === Camera.Constants.FlashMode.off) {
@@ -67,10 +84,10 @@ export default function ScanQr() {
       alert("No tiene permisos de la camara");
     }
   };
+
   return (
     <>
       <View style={styles.container}>
-        <Text>AAA</Text>
         <View className="absolute w-[100%] pb-[30%] flex justify-center items-center h-[100%] z-10">
           <Ionicons name="scan-outline" size={380} color={"white"}></Ionicons>
         </View>
