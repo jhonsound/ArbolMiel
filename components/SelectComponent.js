@@ -13,7 +13,13 @@ const data = [
   { label: "Item 8", value: "8" },
 ];
 
-const DropdownComponent = ({ placeholder, icon }) => {
+const DropdownComponent = ({
+  placeholder,
+  icon,
+  setRegistrationForm,
+  registrationForm,
+  name,
+}) => {
   const [value, setValue] = useState(null);
   const [isFocus, setIsFocus] = useState(false);
 
@@ -41,11 +47,11 @@ const DropdownComponent = ({ placeholder, icon }) => {
         labelField="label"
         valueField="value"
         placeholder={!isFocus ? placeholder : "..."}
-        value={value}
+        value={registrationForm[name]}
         onFocus={() => setIsFocus(true)}
         onBlur={() => setIsFocus(false)}
         onChange={(item) => {
-          setValue(item.value);
+          setRegistrationForm({ ...registrationForm, [name]: item.value });
           setIsFocus(false);
         }}
         renderLeftIcon={() =>
@@ -69,7 +75,7 @@ const styles = StyleSheet.create({
   container: {
     backgroundColor: "white",
     padding: 16,
-    marginTop: 8
+    marginTop: 8,
   },
   dropdown: {
     height: 50,
@@ -77,7 +83,7 @@ const styles = StyleSheet.create({
     borderWidth: 0.5,
     borderRadius: 8,
     paddingHorizontal: 8,
-    marginBottom: 4
+    marginBottom: 4,
   },
   icon: {
     marginRight: 5,
