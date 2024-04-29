@@ -12,10 +12,10 @@ import * as Location from "expo-location";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import { Camera } from "expo-camera";
 import { router } from "expo-router";
+import { useIsFocused } from "@react-navigation/native";
 
 export default function ScanQr() {
-  // const [flashMode, setFlashMode] = useState(Camera.Constants.FlashMode.off);
-  // const [hasPermissionCamera, setHasPermissionCamera] = useState(null);
+  const isFocused = useIsFocused();
   const [camara, setCamara] = useState(Camera.useCameraPermissions());
   const [hasPermission, setHasPermission] = useState(null);
   const [location, setLocation] = useState(null);
@@ -24,7 +24,7 @@ export default function ScanQr() {
   const [location1, setLocation1] = useState(
     Location.useForegroundPermissions()
   );
-
+  const [togglePermission, setTogglePermission] = useState(true);
   let text = "Waiting..";
 
   if (errorMsg) {
@@ -32,11 +32,11 @@ export default function ScanQr() {
   } else if (location) {
     text = JSON.stringify(location);
   }
+  const getBarCodeScannerPermissions = async () => {
+    const { status } = await BarCodeScanner.requestPermissionsAsync();
+    setHasPermission(status === "granted");
+  };
   useEffect(() => {
-    const getBarCodeScannerPermissions = async () => {
-      const { status } = await BarCodeScanner.requestPermissionsAsync();
-      setHasPermission(status === "granted");
-    };
 
     getBarCodeScannerPermissions();
     (async () => {
@@ -55,36 +55,37 @@ export default function ScanQr() {
 
     //   setHasPermissionCamera(status === "granted");
     // })();
-  }, []);
-
+  }, [isFocused]);
+ useEffect(() => {
+   if(!isFocused){
+    setHasPermission(null)
+    setScanned(false)
+   }
+   console.log(hasPermission)
+ }, [isFocused])
+ 
   const handleBarCodeScanned = ({ type, data }) => {
     setScanned(true);
     let Data = {
-      id: data.split(',')[0],
-      admin: data.split(',')[1]
-    }
+      id: data.split(",")[0],
+      admin: data.split(",")[1],
+    };
     try {
-      if(Data.id){
+      if (Data.id) {
         alert(
           `Colonia escaneada exitosamente en ubicación: latitude:${location.coords.latitude} longitude:${location.coords.longitude}`
-        ); 
+        );
         router.push({
           pathname: "/Colognes/registration-cologne",
           params: { id: Data.id, admin: Data.admin },
         });
-      }else{
-        alert(
-          `Código qr invalido, por favor intente de nuevo`
-        );
+      } else {
+        alert(`Código qr invalido, por favor intente de nuevo`);
       }
     } catch (error) {
       console.log(error);
-      alert(
-        `Código qr invalido, por favor intente de nuevo`
-      );
+      alert(`Código qr invalido, por favor intente de nuevo`);
     }
-   
-    
   };
 
   if (hasPermission === null) {
@@ -110,33 +111,33 @@ export default function ScanQr() {
   return (
     <>
       <View style={styles.container}>
-        <View className="absolute w-[100%] pb-[30%] flex justify-center items-center h-[100%] z-10">
-          <Ionicons name="scan-outline" size={380} color={"white"}></Ionicons>
+        <View style={styles.absoluteCenter}>
+          <Ionicons name="scan-outline" size={380} color="white" />
         </View>
 
         <BarCodeScanner
-          onBarCodeScanned={scanned ? undefined : handleBarCodeScanned}
+          onBarCodeScanned={handleBarCodeScanned}
           style={StyleSheet.absoluteFillObject}
         />
-        <View className="flex items-center z-20 mb-[30%]">
+
+        <View style={styles.bottomButton}>
           {scanned && (
             <Button
-              title={"Toca para Escanear de nuevo"}
+              title="Toca para Escanear de nuevo"
               onPress={() => setScanned(false)}
             />
           )}
         </View>
-        <View className="absolute flex flex-row justify-around w-full bottom-24 z-30">
-          <TouchableOpacity >
-            <Ionicons
-              name="flashlight-outline"
-              size={80}
-              color={"white"}
-            ></Ionicons>
+
+        <View style={styles.bottomBar}>
+          <TouchableOpacity
+            onPress={() => setTogglePermission(!togglePermission)}
+          >
+            <Ionicons name="flashlight-outline" size={80} color="white" />
           </TouchableOpacity>
-          <View>
-            <Ionicons name="close-outline" size={80} color={"white"}></Ionicons>
-          </View>
+          <TouchableOpacity onPress={() => router.back()}>
+            <Ionicons name="close-outline" size={80} color="white" />
+          </TouchableOpacity>
         </View>
       </View>
     </>
@@ -145,10 +146,32 @@ export default function ScanQr() {
 
 const styles = StyleSheet.create({
   container: {
-    zIndex: 5,
-    width: "100%",
     flex: 1,
-    flexDirection: "column",
+    position: "relative",
     justifyContent: "center",
+    alignItems: "center",
+  },
+  absoluteCenter: {
+    width: "100%",
+    paddingBottom: "30%",
+    justifyContent: "center",
+    alignItems: "center",
+    zIndex: 10,
+    marginTop: 120,
+  },
+  bottomButton: {
+    flex: 1,
+    alignItems: "center",
+    zIndex: 20,
+    marginBottom: "30%",
+  },
+  bottomBar: {
+    position: "absolute",
+    flexDirection: "row",
+    justifyContent: "space-around",
+    width: "100%",
+    bottom: 30,
+    zIndex: 30,
+    marginBottom: 30,
   },
 });

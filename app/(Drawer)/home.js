@@ -1,7 +1,9 @@
 import { Text, TouchableOpacity, View } from "react-native";
 import Ionicons from "@expo/vector-icons/Ionicons";
-import { Link } from "expo-router";
+import { useRouter } from "expo-router";
+
 export default function Page() {
+  const router = useRouter()
   return (
     <View
       style={{
@@ -34,13 +36,13 @@ export default function Page() {
             <Text>Lista de Registros</Text>
           </View>
         </TouchableOpacity>
-        <TouchableOpacity>
-          <Link href="/(Drawer)/scan-qr">
+        <TouchableOpacity onPress={()=> router.push('/(Drawer)/scan-qr')}>
+          {/* <Link href="/(Drawer)/scan-qr"> */}
           <View className="flex gap-3 justify-center items-center">
             <Ionicons name="qr-code" size={100} color={"#F07F0E"} />
             <Text>Escanear Qr</Text>
           </View>
-          </Link>
+          {/* </Link> */}
         </TouchableOpacity>
         </View>
       </View>
