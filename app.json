@@ -5,10 +5,10 @@
     "version": "1.0.0",
     "scheme": "arbol-miel",
     "orientation": "portrait",
-    "icon": "./assets/Logo.png",
+    "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
     "splash": {
-      "image": "./assets/Logo.png",
+      "image": "./assets/icon.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
@@ -25,7 +25,7 @@
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/Logo.png",
+        "foregroundImage": "./assets/icon.png",
         "backgroundColor": "#ffffff"
       },
       "permissions": [
@@ -38,7 +38,7 @@
       "package": "arbolymiel.apk"
     },
     "web": {
-      "favicon": "./assets/Logo.png",
+      "favicon": "./assets/icon.png",
       "bundler": "metro"
     },
     "plugins": [
