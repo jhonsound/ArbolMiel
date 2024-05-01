@@ -1,6 +1,5 @@
 /* import { Text, View } from "react-native"; */
-import { Redirect } from "expo-router";
-import { Login } from "../screens/Login";
+import { Login } from "../screens/Login/Login";
 import { NativeWindStyleSheet } from "nativewind";
 NativeWindStyleSheet.setOutput({
   default: "native",
