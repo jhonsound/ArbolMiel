@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { StyleSheet, Text, View } from "react-native";
 import { Dropdown } from "react-native-element-dropdown";
+import { TextInput } from "react-native-gesture-handler";
 
 const data = [
   { label: "Item 1", value: "1" },
@@ -19,6 +20,7 @@ const DropdownComponent = ({
   setRegistrationForm,
   registrationForm,
   name,
+  type,
 }) => {
   const [value, setValue] = useState(null);
   const [isFocus, setIsFocus] = useState(false);
@@ -35,37 +37,52 @@ const DropdownComponent = ({
   };
 
   return (
-    <View style={styles.container}>
-      {renderLabel()}
-      <Dropdown
-        style={[styles.dropdown, isFocus && { borderColor: "blue" }]}
-        placeholderStyle={styles.placeholderStyle}
-        selectedTextStyle={styles.selectedTextStyle}
-        iconStyle={styles.iconStyle}
-        data={data}
-        maxHeight={300}
-        labelField="label"
-        valueField="value"
-        placeholder={!isFocus ? placeholder : "..."}
-        value={registrationForm[name]}
-        onFocus={() => setIsFocus(true)}
-        onBlur={() => setIsFocus(false)}
-        onChange={(item) => {
-          setRegistrationForm({ ...registrationForm, [name]: item.value });
-          setIsFocus(false);
-        }}
-        renderLeftIcon={() =>
-          icon ? (
-            <AntDesign
-              style={styles.icon}
-              color={isFocus ? "blue" : "black"}
-              name="Safety"
-              size={20}
-            />
-          ) : null
-        }
-      />
-    </View>
+    <>
+      {type !== "text" ? (
+        <View style={styles.container}>
+          {renderLabel()}
+          <Dropdown
+            style={[styles.dropdown, isFocus && { borderColor: "blue" }]}
+            placeholderStyle={styles.placeholderStyle}
+            selectedTextStyle={styles.selectedTextStyle}
+            iconStyle={styles.iconStyle}
+            data={data}
+            maxHeight={300}
+            labelField="label"
+            valueField="value"
+            placeholder={!isFocus ? placeholder : "..."}
+            value={registrationForm[name]}
+            onFocus={() => setIsFocus(true)}
+            onBlur={() => setIsFocus(false)}
+            onChange={(item) => {
+              setRegistrationForm({ ...registrationForm, [name]: item.value });
+              setIsFocus(false);
+            }}
+            renderLeftIcon={() =>
+              icon ? (
+                <AntDesign
+                  style={styles.icon}
+                  color={isFocus ? "blue" : "black"}
+                  name="Safety"
+                  size={20}
+                />
+              ) : null
+            }
+          />
+        </View>
+      ) : (
+        <TextInput
+          onChange={(item) => {
+            setRegistrationForm({
+              ...registrationForm,
+              [name]: item.nativeEvent.text,
+            });
+          }}
+          style={styles.textInput}
+          placeholder={placeholder}
+        />
+      )}
+    </>
   );
 };
 
@@ -106,6 +123,14 @@ const styles = StyleSheet.create({
   iconStyle: {
     width: 20,
     height: 20,
+  },
+  textInput: {
+    backgroundColor: "#FFF",
+    fontSize: 18,
+    borderRadius: 8,
+    padding: 12,
+    marginTop: 16,
+    borderWidth: 0.5,
   },
   inputSearchStyle: {
     height: 40,

@@ -13,14 +13,12 @@ import {
 import SelectComponent from "../components/SelectComponent";
 import qr from "../assets/QR2.png";
 import Ionicons from "@expo/vector-icons/Ionicons";
-import { useLocalSearchParams, useRouter } from "expo-router";
+import { useLocalSearchParams } from "expo-router";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import axiosInstance from "../utils/axios";
 
-export function Resgistration() {
+export function Control() {
   const [colonie, setColonie] = useState({});
   const params = useLocalSearchParams();
-  const router = useRouter();
   console.log("paramss---->", params.id);
   useEffect(() => {
     if (params.id) {
@@ -31,11 +29,11 @@ export function Resgistration() {
     }
   }, []);
 
-  const [registrationForm, setRegistrationForm] = useState({
-    specie: "",
-    relationship: "",
-    source: "",
+  const [controlForm, setControlForm] = useState({
+    state: "",
+    colinieId: params.id,
     alzas: "",
+    population: "",
   });
 
   const styles = StyleSheet.create({
@@ -86,15 +84,12 @@ export function Resgistration() {
       marginTop: 24,
     },
   });
-
   const handleSave = async () => {
-    console.log(registrationForm, "colonia");
+    console.log(controlForm, "colonia");
     console.log(params);
     try {
-      await axiosInstance.post(`colonies/registry-colonie/${colonie.id}`, {
+      await axiosInstance.post(`controls/create-control}`, {
         ...registrationForm,
-        latitude: params.latitude,
-        longitude: params.longitude,
       });
         alert("Colonia registrada exitosamente");
         router.push("/(Drawer)/home");
@@ -102,9 +97,7 @@ export function Resgistration() {
         console.log(error);
         alert("Error al registrar colonia");
       }
-    
   };
-
   return (
     <View style={styles.container}>
       <View style={styles.rowContainer}>
@@ -134,31 +127,24 @@ export function Resgistration() {
         }}
       >
         <SelectComponent
-          name={"specie"}
-          placeholder="Especie"
-          setRegistrationForm={setRegistrationForm}
-          registrationForm={registrationForm}
+          name={"species"}
+          placeholder="Estado de la Colonia"
+          setControlForm={setControlForm}
+          controlForm={controlForm}
           type="text"
         />
         <SelectComponent
-          placeholder="Parentesco"
-          setRegistrationForm={setRegistrationForm}
-          registrationForm={registrationForm}
-          name={"relationship"}
+          placeholder="Poblacion Actual de la Colonia"
+          setControlForm={setControlForm}
+          controlForm={controlForm}
+          name={"Relationship"}
           type="text"
         />
         <SelectComponent
-          name={"source"}
-          placeholder="Procedencia"
-          setRegistrationForm={setRegistrationForm}
-          registrationForm={registrationForm}
-          type="text"
-        />
-        <SelectComponent
-          name={"alzas"}
-          placeholder="N° Alzas"
-          setRegistrationForm={setRegistrationForm}
-          registrationForm={registrationForm}
+          name={"Source"}
+          placeholder="Alzas"
+          setControlForm={setControlForm}
+          controlForm={controlForm}
           type="text"
         />
       </View>
@@ -178,7 +164,7 @@ export function Resgistration() {
           }}
         >
           <Text style={{ color: "white", fontWeight: "bold" }}>
-            Guardar Colonia
+            Guardar Control
           </Text>
         </View>
       </TouchableOpacity>

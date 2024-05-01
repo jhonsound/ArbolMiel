@@ -13,6 +13,7 @@ import Ionicons from "@expo/vector-icons/Ionicons";
 import { Camera } from "expo-camera";
 import { router } from "expo-router";
 import { useIsFocused } from "@react-navigation/native";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export default function ScanQr() {
   const isFocused = useIsFocused();
@@ -37,7 +38,6 @@ export default function ScanQr() {
     setHasPermission(status === "granted");
   };
   useEffect(() => {
-
     getBarCodeScannerPermissions();
     (async () => {
       let { status } = await Location.requestForegroundPermissionsAsync();
@@ -56,29 +56,42 @@ export default function ScanQr() {
     //   setHasPermissionCamera(status === "granted");
     // })();
   }, [isFocused]);
- useEffect(() => {
-   if(!isFocused){
-    setHasPermission(null)
-    setScanned(false)
-   }
-   console.log(hasPermission)
- }, [isFocused])
- 
-  const handleBarCodeScanned = ({ type, data }) => {
-    setScanned(true);
-    let Data = {
-      id: data.split(",")[0],
-      admin: data.split(",")[1],
-    };
+  useEffect(() => {
+    if (!isFocused) {
+      setHasPermission(null);
+      setScanned(false);
+    }
+    console.log(hasPermission);
+  }, [isFocused]);
+
+  const handleBarCodeScanned = async({ type, data }) => {
+    setScanned(false);
+   
+    console.log(data, 'scan data')
     try {
-      if (Data.id) {
-        alert(
-          `Colonia escaneada exitosamente en ubicación: latitude:${location.coords.latitude} longitude:${location.coords.longitude}`
-        );
-        router.push({
-          pathname: "/Colognes/registration-cologne",
-          params: { id: Data.id, admin: Data.admin },
-        });
+      const colonies = await AsyncStorage.getItem('colonies');
+      console.log(colonies)
+      if (data) {
+      if(colonies){
+        JSON.parse(colonies).map((colonie)=>{
+          if(data === colonie.id){
+            alert(
+              `Colonia escaneada exitosamente`
+            );
+            if(colonie.latitude === 0){
+              router.push({
+                pathname: "/Colognes/registration-cologne",
+                params: { id: data, latitude: location.coords.latitude, longitud: location.coords.longitude},
+              });
+            }else{
+              router.push({
+                pathname: "/Colognes/colony-control",
+                params: { id: data, latitude: location.coords.latitude, longitud: location.coords.longitude},
+              });
+            }
+          }
+        })
+      }
       } else {
         alert(`Código qr invalido, por favor intente de nuevo`);
       }
@@ -116,15 +129,15 @@ export default function ScanQr() {
         </View>
 
         <BarCodeScanner
-          onBarCodeScanned={handleBarCodeScanned}
+          onBarCodeScanned={scanned ? handleBarCodeScanned: undefined}
           style={StyleSheet.absoluteFillObject}
         />
 
         <View style={styles.bottomButton}>
-          {scanned && (
+          {!scanned && (
             <Button
               title="Toca para Escanear de nuevo"
-              onPress={() => setScanned(false)}
+              onPress={() => setScanned(true)}
             />
           )}
         </View>
@@ -157,13 +170,12 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     zIndex: 10,
-    marginTop: 120,
+    marginBottom: 70
   },
   bottomButton: {
-    flex: 1,
-    alignItems: "center",
+   position: 'absolute',
     zIndex: 20,
-    marginBottom: "30%",
+    top: 210
   },
   bottomBar: {
     position: "absolute",

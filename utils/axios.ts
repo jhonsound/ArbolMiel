@@ -2,7 +2,7 @@
 import axios from 'axios';
 
 const axiosInstance = axios.create({
-  baseURL: "https://nhz8ddb2-3001.use2.devtunnels.ms/",// process.env.NEXT_PUBLIC_API,  Cambia esto por tu base URL
+  baseURL: "https://05prg5rd-3001.use.devtunnels.ms/",// process.env.NEXT_PUBLIC_API,  Cambia esto por tu base URL
   headers: {
     'Content-Type': 'application/json',
     // Otros encabezados personalizados que necesites

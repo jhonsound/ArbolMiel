@@ -15,6 +15,7 @@ import { router } from "expo-router";
 import { useState } from "react";
 import axiosInstance from "../../utils/axios";
 import LoginStyles from "./LoginStyles";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 export function Login() {
   const [credentials, setCredentials] = useState({});
   const onSubmit = async () => {
@@ -29,6 +30,9 @@ export function Login() {
           params: { param: "usuario" },
         });
       }
+      await AsyncStorage.setItem('user', JSON.stringify(data));
+      const {data: colonies} = await axiosInstance.post("colonies/get-colonies-by-staff", {id: data.id, meliponarians: data.meliponarians})
+      await AsyncStorage.setItem('colonies', JSON.stringify(colonies));
     } catch (error) {
       alert('Usuario o contraseña incorrectos')
       console.log(error);
